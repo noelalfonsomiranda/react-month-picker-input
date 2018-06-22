@@ -207,7 +207,7 @@ var MonthPickerInput = /** @class */ (function (_super) {
         return (__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { ref: function (wrap) { if (wrap)
                 _this.wrapper = wrap; } },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_input_mask___default.a, __assign({ value: inputValue }, this.inputProps())),
-            showCalendar && this.calendar()));
+            this.calendar()));
     };
     ;
     MonthPickerInput.defaultProps = {
