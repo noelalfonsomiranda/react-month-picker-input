@@ -18,14 +18,6 @@ ReactDOM.render(
           inputProps={{id: "ex-1", name: "ex-1"}} />
       </label>
 
-      <label htmlFor="ex-2">
-        With default year and month
-        <MonthPickerInput
-          year={new Date().getFullYear()}
-          month={new Date().getMonth()}
-          inputProps={{id: "ex-2", name: "ex-2"}} />
-      </label>
-
       <label htmlFor="ex-3">
         Japanese format
         <MonthPickerInput
@@ -40,6 +32,14 @@ ReactDOM.render(
         <MonthPickerInput
           closeOnSelect={true}
           inputProps={{id: "ex-3", name: "ex-3"}} />
+      </label>
+
+      <label htmlFor="ex-2">
+        With default year and month
+        <MonthPickerInput
+          year={new Date().getFullYear()}
+          month={new Date().getMonth()}
+          inputProps={{id: "ex-2", name: "ex-2"}} />
       </label>
     </div>
   ),
