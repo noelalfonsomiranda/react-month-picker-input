@@ -9732,15 +9732,15 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render((__WEBPACK_IMPORTED_MOD
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", { htmlFor: "ex-1" },
         "With only default year",
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_month_picker_input__["a" /* default */], { year: new Date().getFullYear(), inputProps: { id: "ex-1", name: "ex-1" } })),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", { htmlFor: "ex-2" },
-        "With default year and month",
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_month_picker_input__["a" /* default */], { year: new Date().getFullYear(), month: new Date().getMonth(), inputProps: { id: "ex-2", name: "ex-2" } })),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", { htmlFor: "ex-3" },
         "Japanese format",
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_month_picker_input__["a" /* default */], { year: new Date().getFullYear(), month: new Date().getMonth(), lang: "ja", inputProps: { id: "ex-3", name: "ex-3" } })),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", { htmlFor: "ex-4" },
         "Close on month select",
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_month_picker_input__["a" /* default */], { closeOnSelect: true, inputProps: { id: "ex-3", name: "ex-3" } })))), document.getElementById('examples'));
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_month_picker_input__["a" /* default */], { closeOnSelect: true, inputProps: { id: "ex-3", name: "ex-3" } })),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", { htmlFor: "ex-2" },
+        "With default year and month",
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_month_picker_input__["a" /* default */], { year: new Date().getFullYear(), month: new Date().getMonth(), inputProps: { id: "ex-2", name: "ex-2" } })))), document.getElementById('examples'));
 
 
 /***/ }),
