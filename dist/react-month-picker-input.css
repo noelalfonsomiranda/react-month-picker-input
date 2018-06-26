@@ -1,9 +1,9 @@
 .calendar-container {
-  width: 360px;
+  /* width: 360px;
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 2;
+  z-index: 2; */
   background: #fff;
   border: 2px solid #eee;
   border-bottom-right-radius: 5px;
@@ -40,9 +40,18 @@
 }
 
 /*  GRID OF THREE  */
-.span_1_of_3_mp { width: 33.33%; }
+.span_1_of_3_mp {
+  width: 33.33%;
+}
+
+.col_mp.active {
+  background-color: #99DADA;
+  color: #00A3A3;
+  font-weight: 700;
+}
 
 .col_mp{
+  border-bottom: 1px solid #F6F9F9;
   font-size: 16px;
   padding-bottom: 5px;
   padding-top:5px;
@@ -58,10 +67,10 @@
   color:#00A3A3;
   font-weight: bold;
 }
-.selected_cell{
+.selected_cell.active{
   background-color: #00A3A3;
-  font-style: italic;
-  color: #fff;
+  color: #FFFFFF;
+  font-weight: 500;
 }
 .arrows_mp{
   font-weight: bold;

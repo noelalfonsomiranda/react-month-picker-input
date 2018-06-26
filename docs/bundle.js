@@ -23406,16 +23406,21 @@ var MonthCalendar = /** @class */ (function (_super) {
             _this.onChange(selectedYear, _this.state.selectedMonth);
         };
         _this.selectMonth = function (selectedMonth) {
-            _this.setState({ selectedMonth: selectedMonth });
+            _this.setState({ selectedMonth: selectedMonth, isActive: true });
             _this.onChange(_this.state.selectedYear, selectedMonth);
         };
         _this.previous = function () {
-            var startYear = _this.state.years[0] - 12;
-            _this.updateYears(startYear);
+            var parseYear = _this.state.years[6] -= 1;
+            _this.selectYear(parseYear);
+            // console.log('selectedYear', this.state.selectedYear)
+            _this.setState({ isActive: true });
+            // this.updateYears(parseYear);
         };
         _this.next = function () {
-            var startYear = _this.state.years[11] + 1;
-            _this.updateYears(startYear);
+            var parseYear = _this.state.years[6] += 1;
+            _this.selectYear(parseYear);
+            _this.setState({ isActive: false });
+            // this.updateYears(parseYear);
         };
         _this.updateYears = function (startYear) {
             var years = Array.from({ length: 12 }, function (v, k) { return k + startYear; });
@@ -23425,10 +23430,11 @@ var MonthCalendar = /** @class */ (function (_super) {
             return _this.state.currentView === __WEBPACK_IMPORTED_MODULE_3__constants__["c" /* VIEW_YEARS */];
         };
         _this.renderMonths = function () {
-            var selectedMonth = _this.state.selectedMonth;
+            var _a = _this.state, selectedMonth = _a.selectedMonth, unRangeMonths = _a.unRangeMonths, isActive = _a.isActive;
             return __WEBPACK_IMPORTED_MODULE_3__constants__["a" /* MONTHS_NAMES */][_this.props.lang].map(function (month, index) {
                 var selectedKlass = selectedMonth === index ? 'selected_cell' : '';
-                return (__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { key: index, onClick: function () { return _this.selectMonth(index); }, className: "col_mp span_1_of_3_mp " + selectedKlass }, month));
+                var monthsRange = isActive ? unRangeMonths.indexOf(month) < 0 ? 'active' : '' : unRangeMonths.indexOf(month) < 0 ? '' : 'active';
+                return (__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { key: index, onClick: function () { return _this.selectMonth(index); }, className: "col_mp span_1_of_3_mp " + selectedKlass + " " + monthsRange }, month));
             });
         };
         _this.renderYears = function () {
@@ -23438,6 +23444,24 @@ var MonthCalendar = /** @class */ (function (_super) {
                 return (__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { key: i, onClick: function () { return _this.selectYear(year); }, className: "col_mp span_1_of_3_mp " + selectedKlass }, year));
             });
         };
+        _this.handleMonthRange = function (month) {
+            var months = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ];
+            var parseMonths = months.splice(0, month);
+            _this.setState({ unRangeMonths: parseMonths });
+        };
         var _a = _this.props, year = _a.year, month = _a.month;
         var startYear = _this.props.startYear || new Date().getFullYear() - 6;
         _this.state = {
@@ -23445,9 +23469,14 @@ var MonthCalendar = /** @class */ (function (_super) {
             selectedYear: year,
             selectedMonth: month,
             currentView: year ? __WEBPACK_IMPORTED_MODULE_3__constants__["b" /* VIEW_MONTHS */] : __WEBPACK_IMPORTED_MODULE_3__constants__["c" /* VIEW_YEARS */],
+            unRangeMonths: [],
+            isActive: true
         };
         return _this;
     }
+    MonthCalendar.prototype.componentDidMount = function () {
+        this.handleMonthRange(this.props.month);
+    };
     MonthCalendar.prototype.componentWillReceiveProps = function (nextProps) {
         var year = nextProps.year, month = nextProps.month;
         var _a = this.state, selectedYear = _a.selectedYear, selectedMonth = _a.selectedMonth;
@@ -23459,6 +23488,7 @@ var MonthCalendar = /** @class */ (function (_super) {
                 selectedMonth: month,
                 currentView: __WEBPACK_IMPORTED_MODULE_3__constants__["b" /* VIEW_MONTHS */]
             });
+            this.handleMonthRange(month);
         }
     };
     MonthCalendar.prototype.render = function () {

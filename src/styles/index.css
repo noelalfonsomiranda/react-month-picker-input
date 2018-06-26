@@ -1,9 +1,9 @@
 .calendar-container {
-  width: 360px;
+  /* width: 360px;
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 2;
+  z-index: 2; */
   background: #fff;
   border: 2px solid #eee;
   border-bottom-right-radius: 5px;
@@ -44,7 +44,7 @@
   width: 33.33%;
 }
 
-.month_range {
+.col_mp.active {
   background-color: #99DADA;
   color: #00A3A3;
   font-weight: 700;
@@ -67,7 +67,7 @@
   color:#00A3A3;
   font-weight: bold;
 }
-.selected_cell{
+.selected_cell.active{
   background-color: #00A3A3;
   color: #FFFFFF;
   font-weight: 500;

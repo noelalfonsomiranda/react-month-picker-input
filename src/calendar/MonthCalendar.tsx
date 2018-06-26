@@ -19,7 +19,8 @@ export interface IState {
   selectedYear: void|number,
   selectedMonth: void|number,
   currentView: string,
-  unRangeMonths: any
+  unRangeMonths: any,
+  isActive: boolean
 }
 
 class MonthCalendar extends Component<IProps, IState> {
@@ -35,7 +36,8 @@ class MonthCalendar extends Component<IProps, IState> {
       selectedYear: year,
       selectedMonth: month,
       currentView: year ? VIEW_MONTHS : VIEW_YEARS,
-      unRangeMonths: []
+      unRangeMonths: [],
+      isActive: true
     };
   }
 
@@ -51,18 +53,27 @@ class MonthCalendar extends Component<IProps, IState> {
   };
 
   selectMonth = (selectedMonth: number): void => {
-    this.setState({ selectedMonth });
+    this.setState({ selectedMonth, isActive: true });
     this.onChange(this.state.selectedYear, selectedMonth);
   };
 
   previous = (): void => {
-    const startYear = this.state.years[0] - 12;
-    this.updateYears(startYear);
+    const parseYear = this.state.years[6] -= 1;
+    this.selectYear(parseYear)
+    // console.log('selectedYear', this.state.selectedYear)
+
+    this.setState({isActive: true})
+
+    // this.updateYears(parseYear);
   }
 
-  next = (): void => {
-    const startYear = this.state.years[11] + 1;
-    this.updateYears(startYear);
+  next = () => {
+    const parseYear = this.state.years[6] += 1;
+    this.selectYear(parseYear)
+
+    this.setState({isActive: false})
+
+    // this.updateYears(parseYear);
   }
 
   updateYears = (startYear: number): void => {
@@ -76,11 +87,11 @@ class MonthCalendar extends Component<IProps, IState> {
   }
 
   renderMonths = (): JSX.Element[] => {
-    const { selectedMonth, unRangeMonths } = this.state;
+    const { selectedMonth, unRangeMonths, isActive } = this.state;
 
     return MONTHS_NAMES[this.props.lang].map((month, index) => {
       const selectedKlass = selectedMonth === index ? 'selected_cell' : '';
-      const monthsRange = unRangeMonths.indexOf(month) < 0 ? 'month_range' : '';
+      const monthsRange = isActive ? unRangeMonths.indexOf(month) < 0 ? 'active' : '' : unRangeMonths.indexOf(month) < 0 ? '' : 'active';
 
       return (
         <div
@@ -108,8 +119,7 @@ class MonthCalendar extends Component<IProps, IState> {
     });
   }
 
-  testTry = (month): void => {
-    const { selectedMonth } = this.state;
+  handleMonthRange = (month): void => {
     let months =  [
       "Jan",
       "Feb",
@@ -130,7 +140,7 @@ class MonthCalendar extends Component<IProps, IState> {
   }
 
   componentDidMount () {
-    this.testTry(this.props.month)
+    this.handleMonthRange(this.props.month)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -146,7 +156,7 @@ class MonthCalendar extends Component<IProps, IState> {
         selectedMonth: month,
         currentView: VIEW_MONTHS
       });
-      this.testTry(month);
+      this.handleMonthRange(month);
     }
   }
 
