@@ -19,6 +19,7 @@ export interface IState {
   selectedYear: void|number,
   selectedMonth: void|number,
   currentView: string,
+  unRangeMonths: any
 }
 
 class MonthCalendar extends Component<IProps, IState> {
@@ -34,23 +35,8 @@ class MonthCalendar extends Component<IProps, IState> {
       selectedYear: year,
       selectedMonth: month,
       currentView: year ? VIEW_MONTHS : VIEW_YEARS,
+      unRangeMonths: []
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { year, month } = nextProps;
-    const { selectedYear, selectedMonth } = this.state;
-
-    if (typeof year == 'number' &&
-      typeof month == 'number' &&
-      (year !== selectedYear || month !== selectedMonth)
-    ) {
-      this.setState({
-        selectedYear: year,
-        selectedMonth: month,
-        currentView: VIEW_MONTHS
-      });
-    }
   }
 
   onChange = (selectedYear, selectedMonth): void => {
@@ -90,16 +76,17 @@ class MonthCalendar extends Component<IProps, IState> {
   }
 
   renderMonths = (): JSX.Element[] => {
-    const { selectedMonth } = this.state;
+    const { selectedMonth, unRangeMonths } = this.state;
 
     return MONTHS_NAMES[this.props.lang].map((month, index) => {
       const selectedKlass = selectedMonth === index ? 'selected_cell' : '';
+      const monthsRange = unRangeMonths.indexOf(month) < 0 ? 'month_range' : '';
 
       return (
         <div
           key={index}
           onClick={() => this.selectMonth(index)}
-          className={`col_mp span_1_of_3_mp ${selectedKlass}`}
+          className={`col_mp span_1_of_3_mp ${selectedKlass} ${monthsRange}`}
         >{month}</div>
       )
     });
@@ -119,6 +106,54 @@ class MonthCalendar extends Component<IProps, IState> {
         >{year}</div>
       );
     });
+  }
+
+  testTry = (month): void => {
+    const { selectedMonth } = this.state;
+    let months =  [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
+
+    console.log(month)
+
+    const parseMonths = months.splice(0, month)
+
+    console.log('parseMonths', parseMonths, 'selectedMonth', months, 'changeMonths', month)
+    
+    this.setState({unRangeMonths: parseMonths})
+  }
+
+  componentDidMount () {
+    this.testTry(this.props.month)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { year, month } = nextProps;
+    const { selectedYear, selectedMonth } = this.state;
+
+    if (typeof year == 'number' &&
+      typeof month == 'number' &&
+      (year !== selectedYear || month !== selectedMonth)
+    ) {
+      this.setState({
+        selectedYear: year,
+        selectedMonth: month,
+        currentView: VIEW_MONTHS
+      });
+      console.log('nextProps', month)
+      this.testTry(month)
+    }
   }
 
   render(): JSX.Element {

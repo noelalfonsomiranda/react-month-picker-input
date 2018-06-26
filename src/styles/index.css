@@ -40,7 +40,13 @@
 }
 
 /*  GRID OF THREE  */
-.span_1_of_3_mp { width: 33.33%; }
+.span_1_of_3_mp {
+  width: 33.33%;
+}
+
+.month_range {
+  background-color: #99DADA;
+}
 
 .col_mp{
   font-size: 16px;
