@@ -46,9 +46,12 @@
 
 .month_range {
   background-color: #99DADA;
+  color: #00A3A3;
+  font-weight: 700;
 }
 
 .col_mp{
+  border-bottom: 1px solid #F6F9F9;
   font-size: 16px;
   padding-bottom: 5px;
   padding-top:5px;
@@ -66,8 +69,8 @@
 }
 .selected_cell{
   background-color: #00A3A3;
-  font-style: italic;
-  color: #fff;
+  color: #FFFFFF;
+  font-weight: 500;
 }
 .arrows_mp{
   font-weight: bold;

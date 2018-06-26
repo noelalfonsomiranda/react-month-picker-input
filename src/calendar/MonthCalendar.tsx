@@ -123,15 +123,10 @@ class MonthCalendar extends Component<IProps, IState> {
       "Oct",
       "Nov",
       "Dec"
-    ]
+    ];
 
-    console.log(month)
-
-    const parseMonths = months.splice(0, month)
-
-    console.log('parseMonths', parseMonths, 'selectedMonth', months, 'changeMonths', month)
-    
-    this.setState({unRangeMonths: parseMonths})
+    const parseMonths = months.splice(0, month);
+    this.setState({unRangeMonths: parseMonths});
   }
 
   componentDidMount () {
@@ -151,8 +146,7 @@ class MonthCalendar extends Component<IProps, IState> {
         selectedMonth: month,
         currentView: VIEW_MONTHS
       });
-      console.log('nextProps', month)
-      this.testTry(month)
+      this.testTry(month);
     }
   }
 
