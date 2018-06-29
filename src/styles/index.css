@@ -1,9 +1,9 @@
 .calendar-container {
-  /* width: 360px;
+  width: 360px;
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 2; */
+  z-index: 2;
   background: #fff;
   border: 2px solid #eee;
   border-bottom-right-radius: 5px;
