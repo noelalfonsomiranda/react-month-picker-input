@@ -153,7 +153,7 @@ class MonthPickerInput extends Component<IProps, IState> {
     if (data.length > 12) {
       parseDateRange = data.slice(0, 12)
     } else if (data.length < 12) {
-      this.handleMinMonths(data)
+      this.handleMinMonths(data);
     } else {
       parseDateRange = data
     }
@@ -167,6 +167,7 @@ class MonthPickerInput extends Component<IProps, IState> {
     const handleMonth = (month !== undefined) ? month : date.getMonth();
     const years = Math.floor(handleMonth / 12);
     const months = handleMonth - (years * 12) + 6;
+
     if (years) date.setFullYear(date.getFullYear() + years);
     if (months) date.setMonth(date.getMonth() + months);
 
@@ -192,7 +193,7 @@ class MonthPickerInput extends Component<IProps, IState> {
     let year = parseInt(test.pop())
     console.log('params', month, year, params)
 
-    this.handleDateRange(year, month)
+    this.handleDateRange(year, month);
   }
 
   // =======================
