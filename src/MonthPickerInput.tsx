@@ -88,13 +88,12 @@ class MonthPickerInput extends Component<IProps, IState> {
     } else this.setState({ inputValue: mask });
   };
 
-  onChange = (inputValue, year, month) => {
-    // console.log(inputValue, year, month)
+  onChange = (inputValue, year, month): void => {
     if (this.props.onChange) {
       this.props.onChange(inputValue, year, month);
     }
     
-    this.handleYearGetter(year, month)
+    this.handleDateRange(year, month);
   };
 
   onInputBlur = (e): void => {
@@ -146,7 +145,23 @@ class MonthPickerInput extends Component<IProps, IState> {
     }, this.props.inputProps)
   };
 
-  handleYearGetter = (year, month) => {
+  // =======================
+
+  handleDateResult = data => {
+    let parseDateRange
+
+    if (data.length > 12) {
+      parseDateRange = data.slice(0, 12)
+    } else if (data.length < 12) {
+      this.handleMinMonths(data)
+    } else {
+      parseDateRange = data
+    }
+
+    console.log('parseDateRange', parseDateRange)
+  }
+
+  handleDateRange = (year, month) => {
     // This is where the following 11 months automatically selected
     const date = new Date();
     const handleMonth = (month !== undefined) ? month : date.getMonth();
@@ -163,23 +178,30 @@ class MonthPickerInput extends Component<IProps, IState> {
     const start = this.moment((month !== undefined && year !== undefined) ? selectedDate : InitialStartDate);
     const end = this.moment(endDate);
 
-
-
-
     const range = this.moment.range(start, end);
-    const result = Array.from(range.by('months')).map(m => m.format('MMM YYYY'));
+    const result = Array.from(range.by('months')).map(m => m.format('MM YYYY'));
     // const data = Array.from(new Set(result))
-
-    // console.log('result', result)
     // this.setState({yearSelected: data})
+
+    this.handleDateResult(result)
   }
+
+  handleMinMonths = params => {
+    const test = params[0].split(' ')
+    let month = parseInt(test[0])
+    let year = parseInt(test.pop())
+    console.log('params', month, year, params)
+
+    this.handleDateRange(year, month)
+  }
+
+  // =======================
 
   componentDidMount () {
     const { year, month } = this.props
 
-    this.handleYearGetter(year, month)
+    this.handleDateRange(year, month)
   }
-
 
   render() {
     const { inputValue, showCalendar } = this.state;

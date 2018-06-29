@@ -16513,11 +16513,10 @@ var MonthPickerInput = /** @class */ (function (_super) {
                 _this.setState({ inputValue: mask });
         };
         _this.onChange = function (inputValue, year, month) {
-            // console.log(inputValue, year, month)
             if (_this.props.onChange) {
                 _this.props.onChange(inputValue, year, month);
             }
-            _this.handleYearGetter(year, month);
+            _this.handleDateRange(year, month);
         };
         _this.onInputBlur = function (e) {
             if (!_this.wrapper.contains(e.target)) {
@@ -16554,7 +16553,21 @@ var MonthPickerInput = /** @class */ (function (_super) {
                 onChange: _this.onInputChange,
             }, _this.props.inputProps);
         };
-        _this.handleYearGetter = function (year, month) {
+        // =======================
+        _this.handleDateResult = function (data) {
+            var parseDateRange;
+            if (data.length > 12) {
+                parseDateRange = data.slice(0, 12);
+            }
+            else if (data.length < 12) {
+                _this.handleMinMonths(data);
+            }
+            else {
+                parseDateRange = data;
+            }
+            console.log('parseDateRange', parseDateRange);
+        };
+        _this.handleDateRange = function (year, month) {
             // This is where the following 11 months automatically selected
             var date = new Date();
             var handleMonth = (month !== undefined) ? month : date.getMonth();
@@ -16571,10 +16584,17 @@ var MonthPickerInput = /** @class */ (function (_super) {
             var start = _this.moment((month !== undefined && year !== undefined) ? selectedDate : InitialStartDate);
             var end = _this.moment(endDate);
             var range = _this.moment.range(start, end);
-            var result = Array.from(range.by('months')).map(function (m) { return m.format('MMM YYYY'); });
+            var result = Array.from(range.by('months')).map(function (m) { return m.format('MM YYYY'); });
             // const data = Array.from(new Set(result))
-            // console.log('result', result)
             // this.setState({yearSelected: data})
+            _this.handleDateResult(result);
+        };
+        _this.handleMinMonths = function (params) {
+            var test = params[0].split(' ');
+            var month = parseInt(test[0]);
+            var year = parseInt(test.pop());
+            console.log('params', month, year, params);
+            _this.handleDateRange(year, month);
         };
         var _a = _this.props, year = _a.year, month = _a.month;
         var inputValue = '';
@@ -16591,9 +16611,10 @@ var MonthPickerInput = /** @class */ (function (_super) {
         return _this;
     }
     ;
+    // =======================
     MonthPickerInput.prototype.componentDidMount = function () {
         var _a = this.props, year = _a.year, month = _a.month;
-        this.handleYearGetter(year, month);
+        this.handleDateRange(year, month);
     };
     MonthPickerInput.prototype.render = function () {
         var _this = this;
