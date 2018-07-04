@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import InputMask from 'react-input-mask';
-
-import Moment from 'moment';
-import { extendMoment } from 'moment-range';
+import moment from 'moment';
+// import { extendMoment } from 'moment-range';
 
 const DATE_FORMAT = {
   "default": 'MM/YY',
@@ -33,7 +32,6 @@ export interface IState {
   month: void|number,
   inputValue: string,
   showCalendar: boolean,
-  yearSelected: Array<string>
 };
 
 class MonthPickerInput extends Component<IProps, IState> {
@@ -59,12 +57,8 @@ class MonthPickerInput extends Component<IProps, IState> {
       month,
       inputValue,
       showCalendar: false,
-      yearSelected: []
     }
   };
-
-
-  moment = extendMoment(Moment);
 
   onCalendarChange = (year, month): void => {
     const inputValue = valuesToMask(month, year, this.props.lang);
@@ -88,12 +82,11 @@ class MonthPickerInput extends Component<IProps, IState> {
     } else this.setState({ inputValue: mask });
   };
 
-  onChange = (inputValue, year, month): void => {
+  onChange = (inputValue, year, month) => {
     if (this.props.onChange) {
       this.props.onChange(inputValue, year, month);
     }
-    
-    this.handleDateRange(year, month);
+    // this.handleDateRange(year, month)
   };
 
   onInputBlur = (e): void => {
@@ -115,12 +108,11 @@ class MonthPickerInput extends Component<IProps, IState> {
   calendar = (): JSX.Element => {
     const { year, month } = this.state;
     let lang = this.props.lang ? this.props.lang : 'default';
-    
     return (
       <div style={{ position: 'relative' }}>
         <MonthCalendar
-          year={Number(year)}
-          month={Number(month)}
+          year={year}
+          month={month}
           lang={lang}
           onChange={this.onCalendarChange}
           onOutsideClick={this.onCalendarOutsideClick}
@@ -159,15 +151,16 @@ class MonthPickerInput extends Component<IProps, IState> {
   //   }
   // }
 
-  handleDateRange = (year, month) => {
-    const initialStartDate = this.moment(`${year}-${month.length > 1 ? month : '0' + month}-01`).format();
-    // const selectedDate = new Date(year, month);
+  // handleDateRange = (year, month) => {
+  //   console.log(year, month)
+  //   const initialStartDate = moment(`${year}-${month}-01`).format();
+  //   // const selectedDate = new Date(year, month);
 
-    const result = this.moment(initialStartDate).format('MM YYYY');
-    console.log('result', result)
+  //   const result = moment(initialStartDate).format('MM YYYY');
+  //   console.log('result', initialStartDate, result)
 
-    // this.handleDateResult(result)
-  }
+  //   // this.handleDateResult(result)
+  // }
 
   // handleMinMonths = params => {
   //   const test = params[0].split(' ')
@@ -179,12 +172,12 @@ class MonthPickerInput extends Component<IProps, IState> {
 
   // =======================
 
-  componentDidMount () {
-    const { year, month } = this.props
-    // const [initialMonth, initialYear] = '1-2018'.split('-')
+  // componentDidMount () {
+  //   const { year, month } = this.props
+  //   // const [initialMonth, initialYear] = '1-2018'.split('-')
 
-    this.handleDateRange(year, month)
-  }
+  //   this.handleDateRange(month, year)
+  // }
 
   render() {
     const { inputValue, showCalendar } = this.state;
@@ -196,8 +189,8 @@ class MonthPickerInput extends Component<IProps, IState> {
           {...this.inputProps()}
         />
 
-        { this.calendar() }
         {/* { showCalendar && this.calendar() } */}
+        { this.calendar() }
       </div>
     );
   };
