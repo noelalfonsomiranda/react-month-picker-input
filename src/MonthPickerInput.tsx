@@ -119,8 +119,8 @@ class MonthPickerInput extends Component<IProps, IState> {
     return (
       <div style={{ position: 'relative' }}>
         <MonthCalendar
-          year={year}
-          month={month}
+          year={Number(year)}
+          month={Number(month)}
           lang={lang}
           onChange={this.onCalendarChange}
           onOutsideClick={this.onCalendarOutsideClick}
@@ -148,7 +148,6 @@ class MonthPickerInput extends Component<IProps, IState> {
   // =======================
 
   handleDateResult = data => {
-    console.log('data', data)
     let parseDateRange
 
     if (data.length > 12) {
@@ -158,18 +157,13 @@ class MonthPickerInput extends Component<IProps, IState> {
     } else {
       parseDateRange = data
     }
-
-    console.log('parseDateRange', parseDateRange)
   }
 
   handleDateRange = (year, month) => {
-    const InitialStartDate = this.moment(`${year}-${month.length > 1 ? month : '0' + month}-01`).format();
-    const selectedDate = new Date(year, month);
+    const initialStartDate = this.moment(`${year}-${month.length > 1 ? month : '0' + month}-01`).format();
+    // const selectedDate = new Date(year, month);
 
-    const start = this.moment((month !== undefined && year !== undefined) ? selectedDate : InitialStartDate);
-    const result = this.moment(start).format();
-    
-    console.log(result)
+    const result = this.moment(initialStartDate).format();
 
     this.handleDateResult(result)
   }
@@ -178,7 +172,6 @@ class MonthPickerInput extends Component<IProps, IState> {
     const test = params[0].split(' ')
     let month = Number(test[0])
     let year = Number(test.pop())
-    console.log('params', month, year, params)
 
     this.handleDateRange(year, month);
   }
@@ -187,6 +180,7 @@ class MonthPickerInput extends Component<IProps, IState> {
 
   componentDidMount () {
     const { year, month } = this.props
+    // const [initialMonth, initialYear] = '1-2018'.split('-')
 
     this.handleDateRange(year, month)
   }
