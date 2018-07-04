@@ -16555,6 +16555,7 @@ var MonthPickerInput = /** @class */ (function (_super) {
         };
         // =======================
         _this.handleDateResult = function (data) {
+            console.log('data', data);
             var parseDateRange;
             if (data.length > 12) {
                 parseDateRange = data.slice(0, 12);
@@ -16568,31 +16569,17 @@ var MonthPickerInput = /** @class */ (function (_super) {
             console.log('parseDateRange', parseDateRange);
         };
         _this.handleDateRange = function (year, month) {
-            // This is where the following 11 months automatically selected
-            var date = new Date();
-            var handleMonth = (month !== undefined) ? month : date.getMonth();
-            var years = Math.floor(handleMonth / 12);
-            var months = handleMonth - (years * 12) + 6;
-            if (years)
-                date.setFullYear(date.getFullYear() + years);
-            if (months)
-                date.setMonth(date.getMonth() + months);
-            // Get the range of selected and following months
-            var InitialStartDate = new Date(Number(_this.moment().format('Y')), Number(_this.moment().format('M')) - 1);
+            var InitialStartDate = _this.moment(year + "-" + (month.length > 1 ? month : '0' + month) + "-01").format();
             var selectedDate = new Date(year, month);
-            var endDate = _this.moment(date).format();
             var start = _this.moment((month !== undefined && year !== undefined) ? selectedDate : InitialStartDate);
-            var end = _this.moment(endDate);
-            var range = _this.moment.range(start, end);
-            var result = Array.from(range.by('months')).map(function (m) { return m.format('MM YYYY'); });
-            // const data = Array.from(new Set(result))
-            // this.setState({yearSelected: data})
+            var result = _this.moment(start).format();
+            console.log(result);
             _this.handleDateResult(result);
         };
         _this.handleMinMonths = function (params) {
             var test = params[0].split(' ');
-            var month = parseInt(test[0]);
-            var year = parseInt(test.pop());
+            var month = Number(test[0]);
+            var year = Number(test.pop());
             console.log('params', month, year, params);
             _this.handleDateRange(year, month);
         };

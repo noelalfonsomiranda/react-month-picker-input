@@ -148,6 +148,7 @@ class MonthPickerInput extends Component<IProps, IState> {
   // =======================
 
   handleDateResult = data => {
+    console.log('data', data)
     let parseDateRange
 
     if (data.length > 12) {
@@ -162,35 +163,21 @@ class MonthPickerInput extends Component<IProps, IState> {
   }
 
   handleDateRange = (year, month) => {
-    // This is where the following 11 months automatically selected
-    const date = new Date();
-    const handleMonth = (month !== undefined) ? month : date.getMonth();
-    const years = Math.floor(handleMonth / 12);
-    const months = handleMonth - (years * 12) + 6;
-
-    if (years) date.setFullYear(date.getFullYear() + years);
-    if (months) date.setMonth(date.getMonth() + months);
-
-    // Get the range of selected and following months
-    const InitialStartDate = new Date(Number(this.moment().format('Y')), Number(this.moment().format('M')) - 1);
+    const InitialStartDate = this.moment(`${year}-${month.length > 1 ? month : '0' + month}-01`).format();
     const selectedDate = new Date(year, month);
-    const endDate = this.moment(date).format();
 
     const start = this.moment((month !== undefined && year !== undefined) ? selectedDate : InitialStartDate);
-    const end = this.moment(endDate);
-
-    const range = this.moment.range(start, end);
-    const result = Array.from(range.by('months')).map(m => m.format('MM YYYY'));
-    // const data = Array.from(new Set(result))
-    // this.setState({yearSelected: data})
+    const result = this.moment(start).format();
+    
+    console.log(result)
 
     this.handleDateResult(result)
   }
 
   handleMinMonths = params => {
     const test = params[0].split(' ')
-    let month = parseInt(test[0])
-    let year = parseInt(test.pop())
+    let month = Number(test[0])
+    let year = Number(test.pop())
     console.log('params', month, year, params)
 
     this.handleDateRange(year, month);
