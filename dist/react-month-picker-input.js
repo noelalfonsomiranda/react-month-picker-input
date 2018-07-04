@@ -16554,29 +16554,22 @@ var MonthPickerInput = /** @class */ (function (_super) {
             }, _this.props.inputProps);
         };
         // =======================
-        _this.handleDateResult = function (data) {
-            var parseDateRange;
-            if (data.length > 12) {
-                parseDateRange = data.slice(0, 12);
-            }
-            else if (data.length < 12) {
-                _this.handleMinMonths(data);
-            }
-            else {
-                parseDateRange = data;
-            }
-        };
+        // handleDateResult = data => {
+        //   let parseDateRange
+        //   if (data.length > 12) {
+        //     parseDateRange = data.slice(0, 12)
+        //   } else if (data.length < 12) {
+        //     this.handleMinMonths(data);
+        //   } else {
+        //     parseDateRange = data
+        //   }
+        // }
         _this.handleDateRange = function (year, month) {
             var initialStartDate = _this.moment(year + "-" + (month.length > 1 ? month : '0' + month) + "-01").format();
             // const selectedDate = new Date(year, month);
-            var result = _this.moment(initialStartDate).format();
-            _this.handleDateResult(result);
-        };
-        _this.handleMinMonths = function (params) {
-            var test = params[0].split(' ');
-            var month = Number(test[0]);
-            var year = Number(test.pop());
-            _this.handleDateRange(year, month);
+            var result = _this.moment(initialStartDate).format('MM YYYY');
+            console.log('result', result);
+            // this.handleDateResult(result)
         };
         var _a = _this.props, year = _a.year, month = _a.month;
         var inputValue = '';
@@ -16593,6 +16586,12 @@ var MonthPickerInput = /** @class */ (function (_super) {
         return _this;
     }
     ;
+    // handleMinMonths = params => {
+    //   const test = params[0].split(' ')
+    //   let month = Number(test[0])
+    //   let year = Number(test.pop())
+    //   this.handleDateRange(year, month);
+    // }
     // =======================
     MonthPickerInput.prototype.componentDidMount = function () {
         var _a = this.props, year = _a.year, month = _a.month;

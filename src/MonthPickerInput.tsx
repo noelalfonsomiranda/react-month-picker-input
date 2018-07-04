@@ -147,34 +147,35 @@ class MonthPickerInput extends Component<IProps, IState> {
 
   // =======================
 
-  handleDateResult = data => {
-    let parseDateRange
+  // handleDateResult = data => {
+  //   let parseDateRange
 
-    if (data.length > 12) {
-      parseDateRange = data.slice(0, 12)
-    } else if (data.length < 12) {
-      this.handleMinMonths(data);
-    } else {
-      parseDateRange = data
-    }
-  }
+  //   if (data.length > 12) {
+  //     parseDateRange = data.slice(0, 12)
+  //   } else if (data.length < 12) {
+  //     this.handleMinMonths(data);
+  //   } else {
+  //     parseDateRange = data
+  //   }
+  // }
 
   handleDateRange = (year, month) => {
     const initialStartDate = this.moment(`${year}-${month.length > 1 ? month : '0' + month}-01`).format();
     // const selectedDate = new Date(year, month);
 
-    const result = this.moment(initialStartDate).format();
+    const result = this.moment(initialStartDate).format('MM YYYY');
+    console.log('result', result)
 
-    this.handleDateResult(result)
+    // this.handleDateResult(result)
   }
 
-  handleMinMonths = params => {
-    const test = params[0].split(' ')
-    let month = Number(test[0])
-    let year = Number(test.pop())
+  // handleMinMonths = params => {
+  //   const test = params[0].split(' ')
+  //   let month = Number(test[0])
+  //   let year = Number(test.pop())
 
-    this.handleDateRange(year, month);
-  }
+  //   this.handleDateRange(year, month);
+  // }
 
   // =======================
 
