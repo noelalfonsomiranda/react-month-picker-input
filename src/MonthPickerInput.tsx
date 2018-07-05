@@ -137,48 +137,6 @@ class MonthPickerInput extends Component<IProps, IState> {
     }, this.props.inputProps)
   };
 
-  // =======================
-
-  // handleDateResult = data => {
-  //   let parseDateRange
-
-  //   if (data.length > 12) {
-  //     parseDateRange = data.slice(0, 12)
-  //   } else if (data.length < 12) {
-  //     this.handleMinMonths(data);
-  //   } else {
-  //     parseDateRange = data
-  //   }
-  // }
-
-  // handleDateRange = (year, month) => {
-  //   console.log(year, month)
-  //   const initialStartDate = moment(`${year}-${month}-01`).format();
-  //   // const selectedDate = new Date(year, month);
-
-  //   const result = moment(initialStartDate).format('MM YYYY');
-  //   console.log('result', initialStartDate, result)
-
-  //   // this.handleDateResult(result)
-  // }
-
-  // handleMinMonths = params => {
-  //   const test = params[0].split(' ')
-  //   let month = Number(test[0])
-  //   let year = Number(test.pop())
-
-  //   this.handleDateRange(year, month);
-  // }
-
-  // =======================
-
-  // componentDidMount () {
-  //   const { year, month } = this.props
-  //   // const [initialMonth, initialYear] = '1-2018'.split('-')
-
-  //   this.handleDateRange(month, year)
-  // }
-
   render() {
     const { inputValue, showCalendar } = this.state;
 
