@@ -12,6 +12,7 @@ export interface IProps {
   startYear?: number,
   onChange: (selectedYear: number, selectedMonth: number) => any,
   onOutsideClick: (e: any) => any,
+  onChangeYearUpdate?: boolean
 }
 
 export interface IState {
@@ -24,6 +25,10 @@ export interface IState {
 }
 
 class MonthCalendar extends Component<IProps, IState> {
+  static defaultProps = {
+    onChangeYearUpdate: true
+  }
+
   constructor(props: IProps){
     super(props);
 
@@ -48,8 +53,9 @@ class MonthCalendar extends Component<IProps, IState> {
   }
 
   selectYear = (selectedYear: number): void => {
+    const { onChangeYearUpdate } = this.props
     this.setState({ selectedYear, currentView: VIEW_MONTHS });
-    this.onChange(selectedYear, this.state.selectedMonth);
+    onChangeYearUpdate && this.onChange(selectedYear, this.state.selectedMonth);
   };
 
   selectMonth = (selectedMonth: number): void => {
@@ -143,12 +149,12 @@ class MonthCalendar extends Component<IProps, IState> {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { year: oldYear, month: oldMonth } = this.props
     const { year, month } = nextProps;
-    const { selectedYear, selectedMonth } = this.state;
 
     if (typeof year == 'number' &&
       typeof month == 'number' &&
-      (year !== selectedYear || month !== selectedMonth)
+      (year !== oldYear || month !== oldMonth)
     ) {
       this.setState({
         selectedYear: year,
