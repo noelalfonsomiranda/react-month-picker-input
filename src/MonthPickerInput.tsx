@@ -24,7 +24,9 @@ export interface IProps {
     id?: string,
   },
   onChange?: OnChange,
-  closeOnSelect?: boolean
+  closeOnSelect?: boolean,
+  onChangeYearUpdate?: boolean,
+  inputRef?: Function
 };
 
 export interface IState {
@@ -106,6 +108,7 @@ class MonthPickerInput extends Component<IProps, IState> {
   };
 
   calendar = (): JSX.Element => {
+    const { onChangeYearUpdate } = this.props
     const { year, month } = this.state;
     let lang = this.props.lang ? this.props.lang : 'default';
     return (
@@ -116,18 +119,20 @@ class MonthPickerInput extends Component<IProps, IState> {
           lang={lang}
           onChange={this.onCalendarChange}
           onOutsideClick={this.onCalendarOutsideClick}
+          onChangeYearUpdate={onChangeYearUpdate}
         />
       </div>
     )
   };
 
   inputProps = (): object => {
+    const { inputRef } = this.props
     let dateFormat = DATE_FORMAT["default"];
     if (this.props.lang == "ja") {
       dateFormat = DATE_FORMAT["ja"];
     }
     return Object.assign({}, {
-      ref: input => { if(input) this.input = input; },
+      ref: inputRef ? inputRef : (input) => { if(input) this.input = input; },
       mask: "99/99",
       placeholder: dateFormat,
       type: 'text',
