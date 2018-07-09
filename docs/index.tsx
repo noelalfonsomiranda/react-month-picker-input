@@ -37,9 +37,16 @@ ReactDOM.render(
       <label htmlFor="ex-2">
         With default year and month
         <MonthPickerInput
+          inputRef={(ref) => {
+            console.log(ref)
+          }}
           year={new Date().getFullYear()}
           month={new Date().getMonth()}
-          inputProps={{id: "ex-2", name: "ex-2"}} />
+          inputProps={{id: "ex-2", name: "ex-2"}} 
+          onChange={console.log}
+          onChangeYearUpdate={false}
+        />
+          
       </label>
     </div>
   ),
