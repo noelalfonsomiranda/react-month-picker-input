@@ -132,7 +132,12 @@ class MonthPickerInput extends Component<IProps, IState> {
       dateFormat = DATE_FORMAT["ja"];
     }
     return Object.assign({}, {
-      ref: inputRef ? inputRef : (input) => { if(input) this.input = input; },
+      ref: (input) => { 
+        if(input) 
+          this.input = input; 
+        
+        inputRef && inputRef(input) 
+      },
       mask: "99/99",
       placeholder: dateFormat,
       type: 'text',
